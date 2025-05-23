@@ -1,0 +1,24 @@
+---
+- name: Zorg dat python3-apt geïnstalleerd is
+  apt:
+    name: python3-apt
+    state: present
+
+- name: Installeer standaardtools
+  apt:
+    name:
+      - vim
+      - curl
+      - htop
+      - iputils-ping
+      - net-tools
+    state: present
+    update_cache: yes
+
+- name: Plaats testbestand
+  copy:
+    dest: /tmp/ansible_works.txt
+    content: |
+      Deze container is geconfigureerd door Ansible.
+      Tijd: {{ ansible_date_time.iso8601 }}
+

@@ -1,0 +1,21 @@
+---
+# 1. Common + user op alle hosts
+- name: Basisrollen toepassen op alle nodes
+  hosts: common
+  become: true
+
+  roles:
+    - common
+    - role: user
+      vars:
+        add_sudo: true
+        add_ssh_key: true
+
+# 2. Alleen nginx op hosts in groep [nginx]
+- name: Installeer nginx op nginx-hosts
+  hosts: nginx
+  become: true
+
+  roles:
+    - nginx
+
