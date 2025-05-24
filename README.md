@@ -22,6 +22,9 @@ Met behulp van **Ansible** worden deze containers automatisch geconfigureerd, vo
 - 📦 Installeert standaard tools (vim, htop, curl, ping, enz.)
 - 🌐 Installeert NGINX op één container (`ubuntu05`)
 - 🖥️ Deployt een eigen HTML-pagina via Ansible (met een raketje natuurlijk 🚀)
+- 🐘 Installeert PostgreSQL op een specifieke container (`ubuntu03`)
+- 🧑‍💻 Maakt automatisch een databasegebruiker (`appuser`) en een database (`appdb`)
+- 🧩 Alle configuratie gebeurt via een eigen Ansible-rol `postgres`, geschikt voor gebruik in Docker-containers
 
 ---
 
@@ -47,6 +50,10 @@ ansible-project/
 │ ├── common/
 │ ├── user/
 │ └── nginx/
+│ └── postgres/            # Installeert en configureert PostgreSQL
+│       ├── tasks/
+│       ├── defaults/
+│       ├── meta/
 └── create_ubuntu.sh
 
 
@@ -65,6 +72,11 @@ ansible-project/
 
 Bezoek `http://<docker-host-ip>:8080` om de uitgerolde NGINX-pagina te zien.
 
+---
+🐘 PostgreSQL-rol gebruiken
+De rol postgres installeert PostgreSQL, start de server handmatig (geschikt voor Docker zonder systemd) en maakt een database demo_db, gebruiker appuser, en database appdb.
+
+Je kunt deze rol eenvoudig hergebruiken of aanpassen door variabelen toe te voegen in defaults/main.yml.
 ---
 
 ## 🙌 Credits
