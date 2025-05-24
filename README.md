@@ -39,17 +39,18 @@ Dit project is bedoeld om:
 
 ---
 
-## 📂 Structuur
+### 📁 Projectstructuur
 
+```plaintext
 ansible-project/
 ├── hosts.ini
 ├── basic-setup.yml
 ├── ansible.cfg
+├── create_ubuntu.sh
 ├── roles/
-│ ├── common/
-│ ├── user/
-│ └── nginx/
-└── create_ubuntu.sh
+│   ├── common/
+│   ├── user/
+│   └── nginx/
 
 ---
 
