@@ -50,34 +50,36 @@ Dit project is bedoeld om:
 ```plaintext
 
 mijn_ansible1/
-├── ansible.cfg                # Ansible config (incl. remote_tmp)
-├── basic-setup.yml           # Hoofdplaybook met alle rollen
-├── create_ubuntu.sh          # Script om containers aan te maken
-├── hosts.ini                 # Inventarisbestand
-├── README.md                 # Projectdocumentatie
-├── roles/
-│   ├── common/
-│   │   └── tasks/
-│   │       └── main.yml      # Installeert standaardtools
-│
-│   ├── user/
-│   │   ├── tasks/
-│   │   │   └── main.yml      # Maakt gebruiker 'demo' aan
-│   │   └── files/            # Optionele SSH-keys
-│
-│   ├── nginx/
-│   │   ├── tasks/
-│   │   │   └── main.yml      # Installeert nginx, plaatst template
-│   │   └── templates/
-│   │       └── index.html.j2 # Dynamische webpagina (met raket 🚀)
-│
-│   └── postgres/
-│       ├── tasks/
-│       │   └── main.yml      # Installeert PostgreSQL, maakt user/db aan
-│       ├── defaults/
-│       │   └── main.yml      # Variabelen (bijv. db_name, db_user)
-│       └── meta/
-│           └── main.yml      # Galaxy metadata
+├── ansible.cfg                  # Ansible-configuratie (met host_key_checking en remote_tmp)
+├── basic-setup.yml              # Hoofdplaybook dat alle rollen aanroept
+├── create_ubuntu.sh             # Script om Ubuntu Docker-containers aan te maken
+├── hosts.ini                    # Inventory met hostgroepen zoals ubuntu_nodes, nginx-hosts etc.
+├── .gitignore                   # Git-uitsluitingen voor logs, SSH, tmp
+├── README.md                    # Projectdocumentatie en structuur
+└── roles/
+    ├── common/
+    │   └── tasks/
+    │       └── main.yml         # Installeert standaardtools (vim, curl, htop, ping)
+    │
+    ├── user/
+    │   ├── tasks/
+    │   │   └── main.yml         # Maakt gebruiker 'demo' aan, met sudo-rechten en authorized_keys
+    │   └── files/               # (optioneel) extra SSH keys of configuratiebestanden
+    │
+    ├── nginx/
+    │   ├── tasks/
+    │   │   └── main.yml         # Installeert NGINX en plaatst dynamische index.html
+    │   └── templates/
+    │       └── index.html.j2    # HTML-template met containernaam en tijdstip (incl. raket 🚀)
+    │
+    └── postgres/
+        ├── tasks/
+        │   └── main.yml         # Installeert PostgreSQL, creëert gebruiker & database, opent poort 5432
+        ├── handlers/
+        │   └── main.yml         # Handler: Restart PostgreSQL bij config-wijzigingen
+        ├── defaults/            # (optioneel) variabelen zoals db-name en wachtwoord
+        └── meta/
+            └── main.yml         # (optioneel) Galaxy metadata: author, supported OS, dependencies
 
 ```
 ---
