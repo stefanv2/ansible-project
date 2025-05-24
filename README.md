@@ -50,37 +50,36 @@ Dit project is bedoeld om:
 ```plaintext
 
 mijn_ansible1/
-├── ansible.cfg                  # Ansible-configuratie (met host_key_checking en remote_tmp)
-├── basic-setup.yml              # Hoofdplaybook dat alle rollen aanroept
-├── create_ubuntu.sh             # Script om Ubuntu Docker-containers aan te maken
-├── hosts.ini                    # Inventory met hostgroepen zoals ubuntu_nodes, nginx-hosts etc.
-├── .gitignore                   # Git-uitsluitingen voor logs, SSH, tmp
-├── README.md                    # Projectdocumentatie en structuur
-├── restart.sh			 # Herstel containers & SSH na reboot
-└── roles/
-    ├── common/
-    │   └── tasks/
-    │       └── main.yml         # Installeert standaardtools (vim, curl, htop, ping)
-    │
-    ├── user/
-    │   ├── tasks/
-    │   │   └── main.yml         # Maakt gebruiker 'demo' aan, met sudo-rechten en authorized_keys
-    │   └── files/               # (optioneel) extra SSH keys of configuratiebestanden
-    │
-    ├── nginx/
-    │   ├── tasks/
-    │   │   └── main.yml         # Installeert NGINX en plaatst dynamische index.html
-    │   └── templates/
-    │       └── index.html.j2    # HTML-template met containernaam en tijdstip (incl. raket 🚀)
-    │
-    └── postgres/
-        ├── tasks/
-        │   └── main.yml         # Installeert PostgreSQL, creëert gebruiker & database, opent poort 5432
-        ├── handlers/
-        │   └── main.yml         # Handler: Restart PostgreSQL bij config-wijzigingen
-        ├── defaults/            # (optioneel) variabelen zoals db-name en wachtwoord
-        └── meta/
-            └── main.yml         # (optioneel) Galaxy metadata: author, supported OS, dependencies
+├── ansible.cfg                    # Ansible configuratiebestand
+├── basic-setup.yml               # Hoofdplaybook met alle rollen
+├── create_ubuntu.sh              # Shellscript om containers te starten
+├── hosts.ini                     # Inventory met groepen en IP-adressen
+├── restart.sh                    # Script om containers opnieuw op te starten
+├── README.md                     # Documentatie van het project
+├── .gitignore                    # Bestand om ongewenste bestanden uit Git te houden
+├── roles/
+│   ├── common/                   # Basisinstallatie (curl, ping, vim, etc.)
+│   │   └── tasks/
+│   │       └── main.yml
+│   ├── user/                     # Rol voor het aanmaken van de gebruiker 'demo'
+│   │   ├── tasks/
+│   │   │   └── main.yml
+│   │   └── files/                # (optioneel) extra SSH keys of configs
+│   └── apps/                     # Groepering van applicatie-specifieke rollen
+│       ├── nginx/                # Rol voor NGINX-webserver
+│       │   ├── tasks/
+│       │   │   └── main.yml
+│       │   └── templates/
+│       │       └── index.html.j2
+│       └── postgres/             # Rol voor PostgreSQL-database
+│           ├── tasks/
+│           │   └── main.yml
+│           ├── handlers/
+│           │   └── main.yml
+│           ├── defaults/
+│           │   └── main.yml      # (optioneel) standaardvariabelen
+│           └── meta/
+│               └── main.yml      # Metadata voor Ansible Galaxy (optioneel)
 
 ```
 ---
@@ -88,7 +87,7 @@ mijn_ansible1/
 ## 📦 Vereisten
 
 - Ubuntu VM met Docker
-- ESXi-host (bijv. 2 vCPU, 8 GB RAM)
+- ESXi-host (bijv. 2 vCPU, 16 GB RAM)
 - Ansible geïnstalleerd
 - SSH-sleutels geconfigureerd
 

@@ -1,5 +1,0 @@
-- name: Controleer of PostgreSQL actief is (en start anders)
-  shell: pg_isready || pg_ctlcluster 12 main start
-  become: true
-  args:
-    executable: /bin/bash

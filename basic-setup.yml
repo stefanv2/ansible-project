@@ -1,7 +1,7 @@
 ---
-# 1. Common + user op alle hosts
+# 1. Common + user op alle nodes
 - name: Basisrollen toepassen op alle nodes
-  hosts: common
+  hosts: ubuntu_nodes
   become: true
 
   roles:
@@ -17,7 +17,7 @@
   become: true
 
   roles:
-    - nginx
+    - apps/nginx
 
 # 3. Installatie postgres op host in groep [postgres]
 - name: Installeer PostgreSQL op postgres-nodes
@@ -25,4 +25,5 @@
   become: true
 
   roles:
-    - postgres
+    - apps/postgres
+
