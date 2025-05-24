@@ -106,6 +106,34 @@ Je kunt deze rol eenvoudig hergebruiken of aanpassen door variabelen toe te voeg
 
 ---
 
+## 🔁 Herstel containers & SSH na reboot
+
+🔁 Herstel containers & SSH na reboot
+In het geval van een herstart van de Docker-host (bijv. je ESXi-server), kunnen sommige containers uitgeschakeld zijn of ontbreekt de SSH-service binnenin.
+
+Gebruik in dat geval het meegeleverde herstartscript:
+
+./restart.sh
+🛠 Wat doet dit script?
+Start gestopte containers opnieuw (ubuntu01 t/m ubuntu05)
+
+Start of herstart de SSH-server binnenin elke container
+
+Zorgt ervoor dat Ansible weer verbinding kan maken met alle nodes
+
+💡 Tip
+Zorg dat je containers zijn gestart met de vlag --restart unless-stopped, zodat ze automatisch opstarten bij reboot van de host.
+
+Voorbeeld uit create_ubuntu.sh:
+
+docker run -dit \
+  --name "$CONTAINER_NAME" \
+  --restart unless-stopped \
+  ...
+Zo voorkom je dat je containers handmatig hoeft te starten na een reboot.
+
+---
+
 ## 🙌 Credits
 
 Gebouwd en beheerd door **Stefan** – met plezier, foutopsporing en een vleugje automatiseringsmagie. ✨
