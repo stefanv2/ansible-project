@@ -169,6 +169,18 @@ Zo voorkom je dat je containers handmatig hoeft te starten na een reboot.
 
 ---
 
+## 📊 Btop monitoring via Ansible
+De tool btop is een moderne systeembelastingmonitor (de opvolger van htop) en is opgenomen in de common role van dit project.
+
+Kenmerken:
+- Wordt geïnstalleerd op alle hosts via broncode (tar.bz2).
+- Automatisch gedownload en geïnstalleerd via install.sh.
+- Locale instellingen (UTF-8) worden automatisch gezet zodat btop werkt binnen Docker.
+- Werkt in containers via docker exec -it ubuntuXX btop.
+- Ansible-taken binnen roles/common/tasks/main.yml:
+
+---
+
 ## 🙌 Credits
 
 Gebouwd en beheerd door **Stefan** – met plezier, foutopsporing en een vleugje automatiseringsmagie. ✨
