@@ -56,6 +56,7 @@ mijn_ansible1/
 ├── hosts.ini                    # Inventory met hostgroepen zoals ubuntu_nodes, nginx-hosts etc.
 ├── .gitignore                   # Git-uitsluitingen voor logs, SSH, tmp
 ├── README.md                    # Projectdocumentatie en structuur
+├── restart.sh			 # Herstel containers & SSH na reboot
 └── roles/
     ├── common/
     │   └── tasks/
