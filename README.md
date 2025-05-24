@@ -99,7 +99,7 @@ Bezoek `http://<docker-host-ip>:8080` om de uitgerolde NGINX-pagina te zien.
 
 ---
 
-##🐘 PostgreSQL-rol gebruiken
+## 🐘 PostgreSQL-rol gebruiken
 De rol postgres installeert PostgreSQL, start de server handmatig (geschikt voor Docker zonder systemd) en maakt een database demo_db, gebruiker appuser, en database appdb.
 
 Je kunt deze rol eenvoudig hergebruiken of aanpassen door variabelen toe te voegen in defaults/main.yml.
@@ -108,7 +108,6 @@ Je kunt deze rol eenvoudig hergebruiken of aanpassen door variabelen toe te voeg
 
 ## 🔁 Herstel containers & SSH na reboot
 
-🔁 Herstel containers & SSH na reboot
 In het geval van een herstart van de Docker-host (bijv. je ESXi-server), kunnen sommige containers uitgeschakeld zijn of ontbreekt de SSH-service binnenin.
 
 Gebruik in dat geval het meegeleverde herstartscript:
