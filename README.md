@@ -41,7 +41,7 @@ Dit project is bedoeld om:
 
 ### 📁 Projectstructuur
 
-```plaintext
+` ```plaintext `
 ansible-project/
 ├── hosts.ini
 ├── basic-setup.yml
