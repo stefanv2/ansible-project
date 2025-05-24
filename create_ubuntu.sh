@@ -2,40 +2,46 @@
 
 CONTAINER_NAME=$1
 CONTAINER_IP=$2
-HOST_PORT=${3:-8080}  # standaard poort naar 8080
+PORT_MAPPING=${3:-8080:80}
+SSH_PUBKEY=$(cat /home/stefan/.ssh/id_rsa.pub)
 
-# Check input
 if [[ -z "$CONTAINER_NAME" || -z "$CONTAINER_IP" ]]; then
-  echo "Gebruik: $0 <container_name> <ip_adres> [host_port]"
+  echo "Gebruik: $0 <container_naam> <ip_adres> [poortmapping bv 5432:5432]"
   exit 1
 fi
 
-# Container verwijderen als die bestaat
+# Verwijder bestaande container als die bestaat
 docker rm -f "$CONTAINER_NAME" 2>/dev/null
 
-# Container starten
+# Start de container
 docker run -dit \
   --name "$CONTAINER_NAME" \
   --hostname "$CONTAINER_NAME" \
   --network ansible-net \
   --ip "$CONTAINER_IP" \
-  -p "$HOST_PORT":80 \
+  -p "$PORT_MAPPING" \
   ubuntu:20.04
 
-# Setup binnenin de container
-docker exec -it "$CONTAINER_NAME" bash -c "
+# Installeer benodigde tools + stel SSH in
+docker exec -i "$CONTAINER_NAME" bash -c "
   export DEBIAN_FRONTEND=noninteractive &&
   apt update &&
   apt install -y openssh-server sudo curl iputils-ping net-tools vim &&
   useradd -m ansible &&
   echo 'ansible ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/ansible &&
   mkdir -p /home/ansible/.ssh &&
-  echo \"$(cat ~/.ssh/id_rsa.pub)\" > /home/ansible/.ssh/authorized_keys &&
+  echo \"$SSH_PUBKEY\" > /home/ansible/.ssh/authorized_keys &&
   chown -R ansible:ansible /home/ansible/.ssh &&
   chmod 700 /home/ansible/.ssh &&
   chmod 600 /home/ansible/.ssh/authorized_keys &&
-  service ssh start
+  service ssh restart
 "
 
-echo "✅ Container $CONTAINER_NAME aangemaakt op $CONTAINER_IP en bereikbaar via poort $HOST_PORT"
+# Verwijder oude key uit known_hosts (handig bij herbouw)
+sudo -u "$SUDO_USER" ssh-keygen -R "$CONTAINER_IP" >/dev/null 2>&1
+
+# Forceer acceptatie van nieuwe host key (handig bij rebuild)
+sudo -u "$SUDO_USER" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q ansible@"$CONTAINER_IP" exit
+
+echo "✅ Container $CONTAINER_NAME aangemaakt op $CONTAINER_IP en bereikbaar via poort ${PORT_MAPPING%%:*}"
 
