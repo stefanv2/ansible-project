@@ -1,6 +1,12 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/stefanv2/ansible-project)
 ![GitHub repo size](https://img.shields.io/github/repo-size/stefanv2/ansible-project)
 
+# 👋 Over mij
+Hi! Ik ben Stefan — een Oracle DBA met ruim 20 jaar ervaring in databases, infrastructuur en automatisering. Naast mijn werk vind ik het leuk om te experimenteren met Ansible, Docker, en PostgreSQL in zelfgebouwde labomgevingen op ESXi.
+Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documenteren en te delen — zodat ik er zelf van leer, en anderen hopelijk ook.
+
+---
+
 # 🚀 Ansible-Docker Project op ESXi – door Stefan
 
 Welkom bij dit project! Dit is een persoonlijke infrastructuur-automatisering gebouwd door **Stefan**, waarin **Docker**, **ESXi** en **Ansible** samenkomen om een krachtige, schaalbare en volledig scriptbare testomgeving te vormen.
