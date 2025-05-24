@@ -50,8 +50,7 @@ ansible-project/
 │ ├── user/
 │ ├── nginx/
 │ └── postgres/
-│
-└── create_ubuntu.sh
+
 ---
 
 ## 📦 Vereisten
