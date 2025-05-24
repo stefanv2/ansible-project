@@ -42,35 +42,34 @@ Dit project is bedoeld om:
 ## 📂 Structuur
 
 mijn_ansible1/
-├── ansible.cfg                    # Ansible configuratiebestand (met remote_tmp)
-├── basic-setup.yml               # Hoofdplaybook dat alle rollen aanroept
-├── create_ubuntu.sh              # Script om Ubuntu containers aan te maken
-├── hosts.ini                     # Inventaris met IP's en hostgroepen
-├── README.md                     # Documentatie over je project
+├── ansible.cfg                # Ansible config (incl. remote_tmp)
+├── basic-setup.yml           # Hoofdplaybook met alle rollen
+├── create_ubuntu.sh          # Script om containers aan te maken
+├── hosts.ini                 # Inventarisbestand
+├── README.md                 # Projectdocumentatie
 ├── roles/
 │   ├── common/
 │   │   └── tasks/
-│   │       └── main.yml          # Basisinstallatie (vim, curl, etc.)
-│   │
+│   │       └── main.yml      # Installeert standaardtools
+│
 │   ├── user/
 │   │   ├── tasks/
-│   │   │   └── main.yml          # Maakt user 'demo' aan + authorized_keys
-│   │   └── files/
-│   │       └── (optioneel voor bijv. extra SSH keys)
-│   │
+│   │   │   └── main.yml      # Maakt gebruiker 'demo' aan
+│   │   └── files/            # Optionele SSH-keys
+│
 │   ├── nginx/
 │   │   ├── tasks/
-│   │   │   └── main.yml          # Installeert NGINX en plaatst index.html
+│   │   │   └── main.yml      # Installeert nginx, plaatst template
 │   │   └── templates/
-│   │       └── index.html.j2     # Dynamische HTML-template met raket 🚀
-│   │
+│   │       └── index.html.j2 # Dynamische webpagina (met raket 🚀)
+│
 │   └── postgres/
 │       ├── tasks/
-│       │   └── main.yml          # Installeert PostgreSQL, maakt gebruikers & db aan
+│       │   └── main.yml      # Installeert PostgreSQL, maakt user/db aan
 │       ├── defaults/
-│       │   └── main.yml          # (optioneel) variabelen zoals db-name en wachtwoord
+│       │   └── main.yml      # Variabelen (bijv. db_name, db_user)
 │       └── meta/
-│           └── main.yml          # Galaxy-metadata zoals auteur en platformen
+│           └── main.yml      # Galaxy metadata
 
 ---
 
