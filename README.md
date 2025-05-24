@@ -42,15 +42,36 @@ Dit project is bedoeld om:
 ### 📁 Projectstructuur
 
 ```plaintext
-ansible-project/
-├── hosts.ini
-├── basic-setup.yml
-├── ansible.cfg
-├── create_ubuntu.sh
+
+mijn_ansible1/
+├── ansible.cfg                # Ansible config (incl. remote_tmp)
+├── basic-setup.yml           # Hoofdplaybook met alle rollen
+├── create_ubuntu.sh          # Script om containers aan te maken
+├── hosts.ini                 # Inventarisbestand
+├── README.md                 # Projectdocumentatie
 ├── roles/
 │   ├── common/
+│   │   └── tasks/
+│   │       └── main.yml      # Installeert standaardtools
+│
 │   ├── user/
-│   └── nginx/
+│   │   ├── tasks/
+│   │   │   └── main.yml      # Maakt gebruiker 'demo' aan
+│   │   └── files/            # Optionele SSH-keys
+│
+│   ├── nginx/
+│   │   ├── tasks/
+│   │   │   └── main.yml      # Installeert nginx, plaatst template
+│   │   └── templates/
+│   │       └── index.html.j2 # Dynamische webpagina (met raket 🚀)
+│
+│   └── postgres/
+│       ├── tasks/
+│       │   └── main.yml      # Installeert PostgreSQL, maakt user/db aan
+│       ├── defaults/
+│       │   └── main.yml      # Variabelen (bijv. db_name, db_user)
+│       └── meta/
+│           └── main.yml      # Galaxy metadata
 
 ```
 ---
