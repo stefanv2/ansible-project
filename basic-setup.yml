@@ -19,3 +19,10 @@
   roles:
     - nginx
 
+# 3. Installatie postgres op host in groep [postgres]
+- name: Installeer PostgreSQL op postgres-nodes
+  hosts: postgres
+  become: true
+
+  roles:
+    - postgres

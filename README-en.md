@@ -1,3 +1,6 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/stefanv2/ansible-project)
+![GitHub repo size](https://img.shields.io/github/repo-size/stefanv2/ansible-project)
+
 # 🚀 Ansible-Docker Project on ESXi – by Stefan
 
 Welcome to this personal automation project! Built by **Stefan**, this setup combines **Docker**, **ESXi**, and **Ansible** to create a robust, scalable, and fully scripted test environment.
