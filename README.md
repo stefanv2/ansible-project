@@ -52,7 +52,7 @@ Dit project is bedoeld om:
 mijn_ansible1/
 ├── ansible.cfg                    # Ansible configuratiebestand
 ├── basic-setup.yml               # Hoofdplaybook met alle rollen
-├── create_ubuntu.sh              # Shellscript om containers te starten
+├── create_ubuntu.sh              # Shellscript om containers aan te maken. 
 ├── hosts.ini                     # Inventory met groepen en IP-adressen
 ├── restart.sh                    # Script om containers opnieuw op te starten
 ├── README.md                     # Documentatie van het project
@@ -90,6 +90,42 @@ mijn_ansible1/
 - ESXi-host (bijv. 2 vCPU, 16 GB RAM)
 - Ansible geïnstalleerd
 - SSH-sleutels geconfigureerd
+
+---
+
+## 🐳 Container Initialisatie met create_ubuntu.sh
+Dit shellscript automatiseert het aanmaken van een nieuwe Ubuntu-container binnen het ansible-net Docker-netwerk. Het script zorgt ervoor dat je container direct SSH-ready is en toegankelijk is voor je Ansible-playbooks.
+
+📂 Locatie
+Bestand: create_ubuntu.sh
+
+🔧 Functionaliteit
+Start een Ubuntu 20.04-container met een statisch IP in je Docker-bridge netwerk.
+
+Installeert direct tools zoals vim, curl, ping, net-tools en openssh-server.
+
+Maakt de gebruiker ansible aan en voegt je eigen SSH-sleutel toe aan ~/.ssh/authorized_keys.
+
+Zet permissies goed en start de SSH-service.
+
+Verwijdert eventuele oude known_hosts-entries om SSH-fouten te voorkomen.
+
+Forceert een eerste SSH-connectie om host key-checks automatisch te accepteren.
+
+▶️ Voorbeeldgebruik
+sudo ./create_ubuntu.sh ubuntu03 172.16.0.4 5432:5432
+ubuntu03: de naam van de container (en hostname).
+
+172.16.0.4: IP-adres binnen het ansible-net netwerk.
+
+5432:5432: optionele poortmapping, bijv. voor PostgreSQL (standaard = 8080:80).
+
+⚠️ Let op
+Zorg dat je vooraf het Docker-netwerk ansible-net hebt aangemaakt.
+
+Je publieke sleutel moet staan in: /home/stefan/.ssh/id_rsa.pub.
+
+Het script moet met sudo worden uitgevoerd zodat ssh-keygen -R en docker correct werken.
 
 ---
 
