@@ -48,8 +48,8 @@ ansible-project/
 ├── roles/
 │ ├── common/
 │ ├── user/
-│ ├── nginx/
-│ └── postgres/
+│ └── nginx/
+└── create_ubuntu.sh
 
 ---
 
@@ -67,10 +67,12 @@ ansible-project/
 Bezoek `http://<docker-host-ip>:8080` om de uitgerolde NGINX-pagina te zien.
 
 ---
+
 🐘 PostgreSQL-rol gebruiken
 De rol postgres installeert PostgreSQL, start de server handmatig (geschikt voor Docker zonder systemd) en maakt een database demo_db, gebruiker appuser, en database appdb.
 
 Je kunt deze rol eenvoudig hergebruiken of aanpassen door variabelen toe te voegen in defaults/main.yml.
+
 ---
 
 ## 🙌 Credits
