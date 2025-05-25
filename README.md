@@ -7,8 +7,11 @@ Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documen
 
 ---
 
+<p align="center">
 <img src="images/Ansible_logo.svg" alt="BTOP" width="200" height="150"/>
-
+<img src="images/OSM_barrel_top_logo.png" alt="BTOP" width="200" height="150"/>
+</p>
+  
 ---
 
 # 🚀 Ansible-Docker Project op ESXi – door Stefan
