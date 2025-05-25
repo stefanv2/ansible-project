@@ -6,7 +6,7 @@ Hi! Ik ben Stefan — een Oracle DBA met ruim 20 jaar ervaring in databases, inf
 Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documenteren en te delen — zodat ik er zelf van leer, en anderen hopelijk ook.
 
 ---
-![Ansible Logo](https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg)
+<img src="images/Ansible_logo.svg" alt="BTOP" width="50%"/>
 ---
 
 ---
