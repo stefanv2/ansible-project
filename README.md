@@ -10,6 +10,7 @@ Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documen
 <p align="center">
 <img src="images/Ansible_logo.svg" alt="BTOP" width="200" height="150"/>
 <img src="images/OSM_barrel_top_logo.png" alt="BTOP" width="200" height="200"/>
+<img src="images/Docker-Emblem.png" alt="BTOP" width="100" height="100"/>  
 <img src="images/red-lady-bug-md.png" alt="BTOP" width="100" height="100"/>
 
 </p>
