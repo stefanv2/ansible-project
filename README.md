@@ -115,11 +115,11 @@ Forceert een eerste SSH-connectie om host key-checks automatisch te accepteren.
 ▶️ Voorbeeldgebruik
 sudo ./create_ubuntu.sh ubuntu03 172.16.0.4 5432:5432
 ubuntu03: de naam van de container (en hostname).
-
+```plaintext
 172.16.0.4: IP-adres binnen het ansible-net netwerk.
 
 5432:5432: optionele poortmapping, bijv. voor PostgreSQL (standaard = 8080:80).
-
+```
 ⚠️ Vooraf: Docker-netwerk ansible-net aanmaken
 Voordat je de containers aanmaakt met create_ubuntu.sh, moet je een dedicated Docker-netwerk aanmaken met een vast IP-bereik. Dit netwerk zorgt ervoor dat alle containers in hetzelfde netwerksegment zitten en gemakkelijk via Ansible beheerd kunnen worden.
 
