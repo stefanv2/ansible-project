@@ -130,6 +130,7 @@ Ansible gebruikt deze IP’s in hosts.ini
 
 Port forwarding naar de host werkt stabieler met een vooraf gedefinieerd netwerk
 
+```plaintext
 🛠️ Eénmalig uitvoeren:
 docker network create \
   --driver=bridge \
@@ -143,6 +144,7 @@ Je zou een regel moeten zien zoals:
 NETWORK ID     NAME           DRIVER    SCOPE
 abcd12345678   ansible-net    bridge    local
 
+```
 Je publieke sleutel moet staan in: /home/stefan/.ssh/id_rsa.pub.
 
 Het script moet met sudo worden uitgevoerd zodat ssh-keygen -R en docker correct werken.
