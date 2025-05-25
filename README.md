@@ -209,8 +209,8 @@ Kenmerken:
 ---
 ## 🧠 Tags per Role en Component
 
-  -Taken zijn voorzien van tags zoals common, nginx, postgres, files, zip.
-  -Maakt het mogelijk om specifieke onderdelen uit te voeren met --tags.
+  - Taken zijn voorzien van tags zoals common, nginx, postgres, files, zip.
+  - Maakt het mogelijk om specifieke onderdelen uit te voeren met --tags.
 ---
 ## 🧰 Makefile voor Handige Snelkoppelingen
 
