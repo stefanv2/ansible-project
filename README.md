@@ -11,8 +11,6 @@ Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documen
 
 ---
 
----
-
 # 🚀 Ansible-Docker Project op ESXi – door Stefan
 
 Welkom bij dit project! Dit is een persoonlijke infrastructuur-automatisering gebouwd door **Stefan**, waarin **Docker**, **ESXi** en **Ansible** samenkomen om een krachtige, schaalbare en volledig scriptbare testomgeving te vormen.
