@@ -202,6 +202,15 @@ Kenmerken:
 - Ansible-taken binnen roles/common/tasks/main.yml:
 
 ---
+📦 Bestanden Deployen via Zip
+
+  - Kopieert een .zip-bestand naar targetservers.
+  - Verwijdert bestaande map en pakt het zipbestand uit.
+
+🧠 Tags per Role en Component
+
+  -Taken zijn voorzien van tags zoals common, nginx, postgres, files, zip.
+  -Maakt het mogelijk om specifieke onderdelen uit te voeren met --tags.
 
 ## 🙌 Credits
 
