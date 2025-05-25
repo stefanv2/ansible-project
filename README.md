@@ -234,7 +234,9 @@ Kenmerken:
 
 ## 🙌 Credits
 
+<p align="center">
 <img src="images/red-lady-bug-md.png" alt="BTOP" width="100" height="100"/>
+</p>
 
 Gebouwd en beheerd door **Stefan** – met plezier, foutopsporing en een vleugje automatiseringsmagie. ✨
 
