@@ -56,15 +56,19 @@ Dit project is bedoeld om:
 ### 📁 Projectstructuur
 
 ```plaintext
-
 mijn_ansible1/
 ├── ansible.cfg                    # Ansible configuratiebestand
 ├── basic-setup.yml               # Hoofdplaybook met alle rollen
-├── create_ubuntu.sh              # Shellscript om containers aan te maken. 
+├── create_ubuntu.sh              # Shellscript om containers aan te maken
 ├── hosts.ini                     # Inventory met groepen en IP-adressen
 ├── restart.sh                    # Script om containers opnieuw op te starten
-├── README.md                     # Documentatie van het project
-├── .gitignore                    # Bestand om ongewenste bestanden uit Git te houden
+├── Makefile                      # Snelkoppelingen zoals 'make connect-ubuntu01'
+├── dagboek.md                    # Dagboek met voortgang & leerervaringen
+├── .gitignore                    # Uitsluiten van ongewenste bestanden in Git
+├── images/                       # Afbeeldingen voor de README
+│   ├── docker.png
+│   └── postgres.png
+├── README.md                     # Projectdocumentatie
 ├── roles/
 │   ├── common/                   # Basisinstallatie (curl, ping, vim, etc.)
 │   │   └── tasks/
@@ -73,6 +77,11 @@ mijn_ansible1/
 │   │   ├── tasks/
 │   │   │   └── main.yml
 │   │   └── files/                # (optioneel) extra SSH keys of configs
+│   ├── files/                    # Rol voor het kopiëren en uitpakken van ZIP-bestanden
+│   │   ├── tasks/
+│   │   │   └── main.yml          # Bevat logica voor verwijderen + unzippen
+│   │   └── files/
+│   │       └── deploy.zip        # ZIP-bestand met content die uitgerold moet worden
 │   └── apps/                     # Groepering van applicatie-specifieke rollen
 │       ├── nginx/                # Rol voor NGINX-webserver
 │       │   ├── tasks/
