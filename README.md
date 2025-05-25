@@ -120,8 +120,28 @@ ubuntu03: de naam van de container (en hostname).
 
 5432:5432: optionele poortmapping, bijv. voor PostgreSQL (standaard = 8080:80).
 
-⚠️ Let op
-Zorg dat je vooraf het Docker-netwerk ansible-net hebt aangemaakt.
+⚠️ Vooraf: Docker-netwerk ansible-net aanmaken
+Voordat je de containers aanmaakt met create_ubuntu.sh, moet je een dedicated Docker-netwerk aanmaken met een vast IP-bereik. Dit netwerk zorgt ervoor dat alle containers in hetzelfde netwerksegment zitten en gemakkelijk via Ansible beheerd kunnen worden.
+
+✅ Waarom is dit nodig?
+Containers moeten elkaar kunnen bereiken via een vast IP-adres
+
+Ansible gebruikt deze IP’s in hosts.ini
+
+Port forwarding naar de host werkt stabieler met een vooraf gedefinieerd netwerk
+
+🛠️ Eénmalig uitvoeren:
+docker network create \
+  --driver=bridge \
+  --subnet=172.16.0.0/24 \
+  ansible-net
+
+🔍 Controle:
+docker network ls
+
+Je zou een regel moeten zien zoals:
+NETWORK ID     NAME           DRIVER    SCOPE
+abcd12345678   ansible-net    bridge    local
 
 Je publieke sleutel moet staan in: /home/stefan/.ssh/id_rsa.pub.
 
