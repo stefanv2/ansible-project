@@ -27,3 +27,10 @@
   roles:
     - apps/postgres
 
+# 4. Installatie file op host in de groep [files]
+- name: Test zip deploy
+  hosts: files
+  become: true
+  roles:
+    - deploy_zip
+

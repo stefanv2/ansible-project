@@ -7,6 +7,7 @@
       - postgresql-contrib
     state: present
     update_cache: yes
+  tags: [postgres, database]
 
 - name: Start PostgreSQL handmatig (Docker workaround)
   shell: "pg_ctlcluster 12 main start"

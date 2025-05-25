@@ -4,6 +4,7 @@
     name: nginx
     state: present
     update_cache: yes
+  tags: [nginx, web]
 
 - name: Start nginx met fallback naar command
   shell: nginx || service nginx start

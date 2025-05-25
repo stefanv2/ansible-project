@@ -3,10 +3,13 @@
   apt:
     name: python3-apt
     state: present
+    update_cache: yes
 
 - name: Installeer standaardtools
   apt:
     name:
+      - zip
+      - unzip
       - vim
       - curl
       - htop
@@ -21,6 +24,7 @@
     content: |
       Deze container is geconfigureerd door Ansible.
       Tijd: {{ ansible_date_time.iso8601 }}
+  tags: [common]
 
 - name: Zorg dat software-properties-common geïnstalleerd is
   apt:
@@ -135,6 +139,12 @@
   register: locale_check
   changed_when: false
   tags: debug
+
+- name: Installeer make
+  apt:
+    name: make
+    state: present
+  tags: [common, build]
 
 - debug:
     msg: "Locale ingesteld op: {{ locale_check.stdout }}"
