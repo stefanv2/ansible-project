@@ -223,9 +223,8 @@ Kenmerken:
 ---
 ```plaintext
 
---limit per container of meerdere containers.
 ansible-playbook -i hosts.ini basic-setup.yml --limit ubuntu01
---list all tags.
+
 ansible-playbook -i hosts.ini basic-setup.yml --list-tags
   play #1 (ubuntu_nodes): Basisrollen toepassen op alle nodes   TAGS: []
   TASK TAGS: [build, common, debug]
