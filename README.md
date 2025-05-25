@@ -229,11 +229,11 @@ ansible-playbook -i hosts.ini basic-setup.yml --limit ubuntu01
 ansible-playbook -i hosts.ini basic-setup.yml --list-tags
   play #1 (ubuntu_nodes): Basisrollen toepassen op alle nodes   TAGS: []
   TASK TAGS: [build, common, debug]
-  play #2 (nginx): Installeer nginx op nginx-hosts      TAGS: []
+  play #2 (nginx): Installeer nginx op nginx-hosts              TAGS: []
   TASK TAGS: [nginx, web]
   play #3 (postgres): Installeer PostgreSQL op postgres-nodes   TAGS: []
    TASK TAGS: [database, postgres]
-  play #4 (files): Test zip deploy      TAGS: []
+  play #4 (files): Test zip deploy                              TAGS: []
   TASK TAGS: [files, zip]
 
 ```
