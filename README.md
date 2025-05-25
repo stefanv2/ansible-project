@@ -6,6 +6,10 @@ Hi! Ik ben Stefan — een Oracle DBA met ruim 20 jaar ervaring in databases, inf
 Ik gebruik dit GitHub-account om mijn projecten, scripts en playbooks te documenteren en te delen — zodat ik er zelf van leer, en anderen hopelijk ook.
 
 ---
+![Ansible Logo](https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg)
+---
+
+---
 
 # 🚀 Ansible-Docker Project op ESXi – door Stefan
 
@@ -201,6 +205,28 @@ Kenmerken:
 - Werkt in containers via docker exec -it ubuntuXX btop.
 - Ansible-taken binnen roles/common/tasks/main.yml:
 
+---
+## 📦 Bestanden Deployen via Zip
+
+  - Kopieert een .zip-bestand naar targetservers.
+  - Verwijdert bestaande map en pakt het zipbestand uit.
+---
+## 🧠 Tags per Role en Component
+
+  - Taken zijn voorzien van tags zoals common, nginx, postgres, files, zip.
+  - Maakt het mogelijk om specifieke onderdelen uit te voeren met --tags.
+---
+## 🧰 Makefile voor Handige Snelkoppelingen
+
+    Bevat commando's zoals:
+
+     make connect-ubuntu01
+        make common
+        make nginx
+        make postgres
+        make files
+        make zip
+        make list-tags
 ---
 
 ## 🙌 Credits
