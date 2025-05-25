@@ -219,6 +219,25 @@ Kenmerken:
 
   - Taken zijn voorzien van tags zoals common, nginx, postgres, files, zip.
   - Maakt het mogelijk om specifieke onderdelen uit te voeren met --tags.
+
+---
+```plaintext
+
+--limit per container of meerdere containers.
+ansible-playbook -i hosts.ini basic-setup.yml --limit ubuntu01
+--list all tags.
+ansible-playbook -i hosts.ini basic-setup.yml --list-tags
+  play #1 (ubuntu_nodes): Basisrollen toepassen op alle nodes   TAGS: []
+  TASK TAGS: [build, common, debug]
+  play #2 (nginx): Installeer nginx op nginx-hosts      TAGS: []
+  TASK TAGS: [nginx, web]
+  play #3 (postgres): Installeer PostgreSQL op postgres-nodes   TAGS: []
+   TASK TAGS: [database, postgres]
+  play #4 (files): Test zip deploy      TAGS: []
+  TASK TAGS: [files, zip]
+
+```
+
 ---
 ## 🧰 Makefile voor Handige Snelkoppelingen
 
