@@ -1,6 +1,6 @@
-- name: Ping localhost
-  hosts: localhost
+- name: Ping Docker host
+  hosts: all
+  gather_facts: yes
   tasks:
     - name: Doe een ping
       ansible.builtin.ping:
-
