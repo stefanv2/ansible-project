@@ -10,5 +10,3 @@
     name: btop
     state: present
   when: ansible_os_family == "RedHat"
----
-# tasks file for roles/btop
