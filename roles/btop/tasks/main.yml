@@ -1,0 +1,14 @@
+---
+- name: Install btop via apt
+  ansible.builtin.apt:
+    name: btop
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install btop via dnf
+  ansible.builtin.dnf:
+    name: btop
+    state: present
+  when: ansible_os_family == "RedHat"
+---
+# tasks file for roles/btop
