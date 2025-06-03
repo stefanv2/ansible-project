@@ -1,24 +1,20 @@
----
-- name: Install snapd (if needed)
+- name: Install dependencies for btop
+  become: true
   ansible.builtin.apt:
-    name: snapd
+    name:
+      - wget
+      - gnupg
     state: present
     update_cache: true
-  become: true
-  when: ansible_os_family == "Debian"
 
-- name: Enable snapd socket
-  ansible.builtin.systemd:
-    name: snapd.socket
-    enabled: true
-    state: started
-  become: true
-  when: ansible_os_family == "Debian"
+- name: Download btop .deb package
+  ansible.builtin.get_url:
+    url: https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-linux.deb
+    dest: /tmp/btop.deb
+    mode: '0644'
 
-- name: Install btop via snap
+- name: Install btop using dpkg
   become: true
-  community.general.snap:
-    name: btop
-    classic: true
-  when: ansible_os_family == "Debian"
+  ansible.builtin.apt:
+    deb: /tmp/btop.deb
 
