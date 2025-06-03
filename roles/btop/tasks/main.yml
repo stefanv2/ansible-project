@@ -1,8 +1,9 @@
 ---
-- name: Install btop via apt
-  ansible.builtin.apt:
+- name: Install btop via snap
+  become: true
+  community.general.snap:
     name: btop
-    state: present
+    classic: true
   when: ansible_os_family == "Debian"
 
 - name: Install btop via dnf
