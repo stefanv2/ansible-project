@@ -1,4 +1,21 @@
 ---
+
+- name: Install snapd (if needed)
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+    update_cache: true
+  become: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure snap service is running
+  ansible.builtin.systemd:
+    name: snapd
+    state: started
+    enabled: true
+  become: true
+  when: ansible_os_family == "Debian"
+
 - name: Install btop via snap
   become: true
   community.general.snap:
@@ -11,3 +28,4 @@
     name: btop
     state: present
   when: ansible_os_family == "RedHat"
+
