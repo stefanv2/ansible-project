@@ -1,20 +1,45 @@
-- name: Install dependencies for btop
-  become: true
-  ansible.builtin.apt:
+---
+# roles/btop/tasks/main.yml
+
+- name: Install required packages for btop
+  apt:
     name:
       - wget
-      - gnupg
+      - tar
+      - bzip2
     state: present
-    update_cache: true
+    update_cache: yes
 
-- name: Download btop .deb package
-  ansible.builtin.get_url:
-    url: https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-linux.deb
-    dest: /tmp/btop.deb
+- name: Create temporary directory for btop
+  file:
+    path: /tmp/btop
+    state: directory
+    mode: '0755'
+
+- name: Download btop latest release (.tbz)
+  get_url:
+    url: https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-linux-musl.tbz
+    dest: /tmp/btop/btop.tbz
     mode: '0644'
 
-- name: Install btop using dpkg
-  become: true
-  ansible.builtin.apt:
-    deb: /tmp/btop.deb
+- name: Extract btop archive
+  unarchive:
+    src: /tmp/btop/btop.tbz
+    dest: /tmp/btop/
+    remote_src: yes
+    extra_opts: [--bzip2]
+
+- name: Run install.sh script from btop
+  command: ./install.sh
+  args:
+    chdir: /tmp/btop
+
+- name: Verify btop installation
+  command: btop --version
+  register: btop_version
+  ignore_errors: true
+
+- name: Show btop version
+  debug:
+    var: btop_version.stdout
 
