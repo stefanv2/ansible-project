@@ -1,5 +1,4 @@
 ---
-
 - name: Install snapd (if needed)
   ansible.builtin.apt:
     name: snapd
@@ -8,11 +7,11 @@
   become: true
   when: ansible_os_family == "Debian"
 
-- name: Ensure snap service is running
+- name: Enable snapd socket
   ansible.builtin.systemd:
-    name: snapd
-    state: started
+    name: snapd.socket
     enabled: true
+    state: started
   become: true
   when: ansible_os_family == "Debian"
 
@@ -22,10 +21,4 @@
     name: btop
     classic: true
   when: ansible_os_family == "Debian"
-
-- name: Install btop via dnf
-  ansible.builtin.dnf:
-    name: btop
-    state: present
-  when: ansible_os_family == "RedHat"
 
