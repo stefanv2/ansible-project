@@ -1,5 +1,4 @@
 ---
----
 # roles/btop/tasks/main.yml
 
 - name: Install required packages for btop on Debian
