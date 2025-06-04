@@ -42,7 +42,16 @@
 - name: Run install.sh script from btop
   command: ./install.sh
   args:
-    chdir: /tmp/btop
+    chdir: /tmp/btop/btop
+- name: Fail if install.sh does not exist
+  stat:
+    path: /tmp/btop/btop/install.sh
+  register: install_script
+
+- name: Abort if install.sh is missing
+  fail:
+    msg: "install.sh script is missing!"
+  when: not install_script.stat.exists
 
 - name: Verify btop installation
   command: btop --version
