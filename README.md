@@ -70,7 +70,10 @@ mijn_ansible1/
 │   └── postgres.png
 ├── README.md                     # Projectdocumentatie
 ├── roles/
-│   ├── common/                   # Basisinstallatie (curl, ping, vim, etc.)
+│   └── btop/
+│       └── tasks/
+│           └── main.yml
+├── common/                   # Basisinstallatie (curl, ping, vim, etc.)
 │   │   └── tasks/
 │   │       └── main.yml
 │   ├── user/                     # Rol voor het aanmaken van de gebruiker 'demo'
@@ -245,6 +248,21 @@ ansible-playbook -i hosts.ini basic-setup.yml --list-tags
   TASK TAGS: [files, zip]
 
 ```
+---
+## 📦 btop installatie met Ansible
+
+Deze rol installeert het systeemmonitorprogramma btop op Linux-servers via Ansible.
+
+btop is een moderne resource monitor voor Linux die CPU, geheugen, schijf en netwerkactiviteit weergeeft in een overzichtelijke TUI-interface. Het is handig voor zowel systeembeheer als troubleshooting.
+🧰 Ondersteunde installatiemethoden
+
+De rol kiest automatisch de juiste installatiebron op basis van het besturingssysteem:
+
+    Debian/Ubuntu: installatie via snap
+
+    RHEL/CentOS: installatie via dnf
+
+    🔧 Let op: voor Debian/Ubuntu wordt ervan uitgegaan dat snapd geïnstalleerd en geactiveerd is. Zorg dat je snapd handmatig of via een andere rol installeert als dat nog niet gebeurd is.
 
 ---
 ## 🧰 Makefile voor Handige Snelkoppelingen
