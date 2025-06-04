@@ -1,7 +1,8 @@
 ---
+---
 # roles/btop/tasks/main.yml
 
-- name: Install required packages for btop
+- name: Install required packages for btop on Debian
   apt:
     name:
       - wget
@@ -9,6 +10,16 @@
       - bzip2
     state: present
     update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install required packages for btop on RedHat
+  dnf:
+    name:
+      - wget
+      - tar
+      - bzip2
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Create temporary directory for btop
   file:
