@@ -70,10 +70,10 @@ mijn_ansible1/
 │   └── postgres.png
 ├── README.md                     # Projectdocumentatie
 ├── roles/
-│   └── btop/
-│       └── tasks/
-│           └── main.yml
-├── common/                   # Basisinstallatie (curl, ping, vim, etc.)
+│ │  └── btop/
+│ │    └── tasks/
+│ │        └── main.yml
+│ └── common/                   # Basisinstallatie (curl, ping, vim, etc.)
 │   │   └── tasks/
 │   │       └── main.yml
 │   ├── user/                     # Rol voor het aanmaken van de gebruiker 'demo'
