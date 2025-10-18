@@ -1,0 +1,9 @@
+---
+- name: Test of Docker modules beschikbaar zijn
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Toon beschikbare docker modules
+      debug:
+        msg: "{{ lookup('ansible.builtin.module_finder', 'docker') }}"
+
