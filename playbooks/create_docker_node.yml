@@ -5,10 +5,9 @@
   gather_facts: false
 
   vars:
-    container_name: "{{ survey_container_name | default('ubuntu06') }}"
-    container_image: "{{ survey_image | default('ubuntu:20.04') }}"
-    container_port: "{{ survey_ssh_port | default(2226) }}"
-    # Haal de AWX-runner public key op vanaf de controller (AWX)
+    container_name: "{{ container_name | default('ubuntu06') }}"
+    container_image: "{{ container_image | default('ubuntu:20.04') }}"
+    container_port: "{{ container_port | default(2226) }}"
     ssh_public_key: "{{ lookup('file', '/runner/.ssh/id_rsa.pub') }}"
 
   pre_tasks:
