@@ -1,4 +1,13 @@
+---
 collections:
   - name: community.general
     version: ">=7.0.0"
+  - name: community.docker
+    version: ">=3.0.0"
+  - name: ansible.posix
+
+roles:
+  - name: ubuntu20-cis
+    src: https://github.com/ansible-lockdown/UBUNTU20-CIS
+    version: main
 
