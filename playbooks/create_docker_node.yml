@@ -1,0 +1,68 @@
+---
+- name: Maak nieuwe Ubuntu container AWX-ready
+  hosts: dockerhost
+  become: true
+  gather_facts: false
+
+  vars:
+    container_name: "{{ survey_container_name | default('ubuntu06') }}"
+    container_image: "{{ survey_image | default('ubuntu:20.04') }}"
+    container_port: "{{ survey_ssh_port | default(2226) }}"
+    # Haal de AWX-runner public key op vanaf de controller (AWX)
+    ssh_public_key: "{{ lookup('file', '/runner/.ssh/id_rsa.pub') }}"
+
+  pre_tasks:
+    - name: Zorg dat python-docker aanwezig is (voor community.docker)
+      ansible.builtin.pip:
+        name: docker
+        state: present
+      become: true
+
+  tasks:
+    - name: Start container (basis)
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        state: started
+        detach: true
+        tty: true
+        published_ports:
+          - "{{ container_port }}:22"
+        command: "sleep infinity"  # we configureren eerst, daarna pas sshd -D
+
+    - name: Update apt & installeer openssh-server + sudo
+      community.docker.docker_container_exec:
+        container: "{{ container_name }}"
+        command: bash -c "apt-get update && apt-get install -y openssh-server sudo"
+
+    - name: Maak user 'ansible' met sudo NOPASSWD
+      community.docker.docker_container_exec:
+        container: "{{ container_name }}"
+        command: bash -c "id -u ansible >/dev/null 2>&1 || useradd -m -s /bin/bash ansible && echo 'ansible ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/90-ansible && chmod 440 /etc/sudoers.d/90-ansible"
+
+    - name: Plaats AWX public key in authorized_keys
+      community.docker.docker_container_exec:
+        container: "{{ container_name }}"
+        command: >
+          bash -c "mkdir -p /home/ansible/.ssh &&
+                   printf '%s\n' '{{ ssh_public_key }}' >> /home/ansible/.ssh/authorized_keys &&
+                   chown -R ansible:ansible /home/ansible/.ssh &&
+                   chmod 700 /home/ansible/.ssh &&
+                   chmod 600 /home/ansible/.ssh/authorized_keys"
+
+    - name: Zet container commando om naar sshd -D en herstart
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        command: "/usr/sbin/sshd -D"
+        published_ports:
+          - "{{ container_port }}:22"
+        restart: true
+        state: started
+
+    - name: Toon connectiegegevens (handig in job log)
+      ansible.builtin.debug:
+        msg:
+          - "Nieuwe host: {{ container_name }}"
+          - "SSH: ansible@192.168.2.11:{{ container_port }}"
+
