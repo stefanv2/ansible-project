@@ -18,3 +18,8 @@ __pycache__/
 .DS_Store
 *.swp
 
+results/
+autoupgrade.jar
+*.log
+*.tmp
+*.bak
