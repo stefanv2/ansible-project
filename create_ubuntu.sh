@@ -2,11 +2,11 @@
 
 CONTAINER_NAME=$1
 CONTAINER_IP=$2
-PORT_MAPPING=${3:-8080:80}
+PORT_MAPPING=$3
 SSH_PUBKEY=$(cat /home/stefan/.ssh/id_rsa.pub)
 
 if [[ -z "$CONTAINER_NAME" || -z "$CONTAINER_IP" ]]; then
-  echo "Gebruik: $0 <container_naam> <ip_adres> [poortmapping bv 5432:5432]"
+  echo "Gebruik: $0 <container_naam> <ip_adres> \"<poortmapping bv 2224:22 5432:5432>\""
   exit 1
 fi
 
@@ -19,7 +19,7 @@ docker run -dit \
   --hostname "$CONTAINER_NAME" \
   --network ansible-net \
   --ip "$CONTAINER_IP" \
-  -p "$PORT_MAPPING" \
+  $(for port in $PORT_MAPPING; do echo -n "-p $port "; done) \
   ubuntu:20.04
 
 # Installeer benodigde tools + stel SSH in
@@ -37,11 +37,11 @@ docker exec -i "$CONTAINER_NAME" bash -c "
   service ssh restart
 "
 
-# Verwijder oude key uit known_hosts (handig bij herbouw)
+# Verwijder oude key uit known_hosts (handig bij rebuilds)
 sudo -u "$SUDO_USER" ssh-keygen -R "$CONTAINER_IP" >/dev/null 2>&1
 
-# Forceer acceptatie van nieuwe host key (handig bij rebuild)
+# Forceer acceptatie van nieuwe SSH-host key
 sudo -u "$SUDO_USER" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q ansible@"$CONTAINER_IP" exit
 
-echo "✅ Container $CONTAINER_NAME aangemaakt op $CONTAINER_IP en bereikbaar via poort ${PORT_MAPPING%%:*}"
+echo "✅ Container $CONTAINER_NAME aangemaakt op $CONTAINER_IP en bereikbaar via poorten: $PORT_MAPPING"
 

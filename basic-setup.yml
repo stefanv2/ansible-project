@@ -34,3 +34,17 @@
   roles:
     - deploy_zip
 
+# 5. Start een PostgreSQL-container op testhost
+- name: Start PostgreSQL-container voor Barman test
+  hosts: dockerhost
+  become: true
+  roles:
+    - postgres_container
+
+# 6. Start Barman-container op testhost
+- name: Start Barman-container
+  hosts: dockerhost
+  become: true
+  roles:
+    - barman_container
+

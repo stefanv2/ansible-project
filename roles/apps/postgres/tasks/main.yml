@@ -19,11 +19,11 @@
     pgstart.rc != 0 and
     ('already running' not in pgstart.stdout | lower)
 
-- name: Maak testdatabase aan (sudo -u postgres)
+- name: Maak testdatabase aan
   shell: |
     sudo -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='demo_db'" \
       || sudo -u postgres psql -c "CREATE DATABASE demo_db;"
-  become: true          # blijf root in de container
+  become: false
   args:
     executable: /bin/bash
 
