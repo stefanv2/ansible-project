@@ -1,0 +1,7 @@
+---
+- name: Test verbinding met postgres hosts
+  hosts: postgres
+  gather_facts: false
+  tasks:
+    - name: Ping test
+      ansible.builtin.ping:

@@ -1,0 +1,15 @@
+---
+- name: CIS Audit Ubuntu 20.04
+  hosts: all
+  become: true
+
+  vars:
+    ubuntu20cis_audit_only: true
+    ubuntu20cis_level_1: true
+    ubuntu20cis_section1: true
+    ubuntu20cis_section2: true
+    container_vars_file: "cis_container_vars.yml"
+
+  roles:
+    - ubuntu20-cis
+
