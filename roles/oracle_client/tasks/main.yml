@@ -15,19 +15,26 @@
     mode: '0755'
   become: true
 
-- name: Download Oracle Instant Client
+- name: Download Oracle Instant Client BasicLite
   get_url:
-    url: "{{ oracle_client_url }}"
-    dest: /opt/oracle/oracle-instantclient.zip
-    mode: '0644'
+    url: "{{ oracle_client_url_basic }}"
+    dest: /opt/oracle/oracle-instantclient-basic.zip
   become: true
-  when: oracle_client_url is defined
 
-- name: Pak Oracle Instant Client uit
+- name: Download Oracle Instant Client SQLPlus
+  get_url:
+    url: "{{ oracle_client_url_sqlplus }}"
+    dest: /opt/oracle/oracle-instantclient-sqlplus.zip
+  become: true
+
+- name: Pak beide archives uit
   unarchive:
-    src: /opt/oracle/oracle-instantclient.zip
+    src: "{{ item }}"
     dest: /opt/oracle/
     remote_src: true
+  with_items:
+    - /opt/oracle/oracle-instantclient-basic.zip
+    - /opt/oracle/oracle-instantclient-sqlplus.zip
   become: true
 
 - name: Maak symlink voor sqlplus
