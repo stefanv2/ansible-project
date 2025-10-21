@@ -72,13 +72,15 @@
     mode: '0644'
   become: true
 
-- name: Test TCPS connectie met sqlplus
-  shell: ". /etc/profile.d/oracle_client.sh && echo 'exit' | sqlplus system@LUIZ"
+- name: Test TCPS connectie met sqlplus (via Credential env vars)
+  shell: >
+    . /etc/profile.d/oracle_client.sh &&
+    echo "${ORACLE_PASSWORD}" | sqlplus -s ${ORACLE_USERNAME}/${ORACLE_PASSWORD}@LUIZ
   register: sqlplus_test
   ignore_errors: true
   become: true
 
-- name: Toon resultaat van TCPS test
+- name: Toon resultaat van TCPS connectie
   debug:
     var: sqlplus_test.stdout
 
