@@ -1,4 +1,7 @@
 ---
-- name: Installeer Oracle Instant Client met TCPS-test
+- name: Installeer Oracle Instant Client
   hosts: ubuntu_nodes
   become: true
+
+  roles:
+    - oracle_client
