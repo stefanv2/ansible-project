@@ -90,18 +90,3 @@
 - name: Toon Oracle Client versie
   debug:
     msg: "{{ sqlplus_version.stdout }}"
-# ===============================
-# 🔹 Test TCPS connectie (met wachtwoord prompt)
-# ===============================
-
-- name: Test TCPS connectie met sqlplus
-  shell: >
-    . /etc/profile.d/oracle_client.sh &&
-    echo '{{ oracle_password }}' | sqlplus -s system/{{ oracle_password }}@LUIZ
-  register: sqlplus_test
-  ignore_errors: true
-  become: true
-
-- name: Toon resultaat van TCPS connectie
-  debug:
-    var: sqlplus_test.stdout

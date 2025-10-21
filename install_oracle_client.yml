@@ -2,12 +2,3 @@
 - name: Installeer Oracle Instant Client met TCPS-test
   hosts: ubuntu_nodes
   become: true
-
-  vars_prompt:
-    - name: oracle_password
-      prompt: "Voer het Oracle SYSTEM-wachtwoord in"
-      private: yes
-
-  roles:
-    - oracle_client
-
