@@ -54,6 +54,34 @@
     mode: '0755'
   become: true
 
+- name: Plaats tnsnames.ora
+  template:
+    src: tnsnames.ora.j2
+    dest: /opt/oracle/instantclient_{{ oracle_client_version }}/network/admin/tnsnames.ora
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Plaats sqlnet.ora
+  template:
+    src: sqlnet.ora.j2
+    dest: /opt/oracle/instantclient_{{ oracle_client_version }}/network/admin/sqlnet.ora
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Test TCPS connectie met sqlplus
+  shell: ". /etc/profile.d/oracle_client.sh && echo 'exit' | sqlplus system@LUIZ"
+  register: sqlplus_test
+  ignore_errors: true
+  become: true
+
+- name: Toon resultaat van TCPS test
+  debug:
+    var: sqlplus_test.stdout
+
 - name: Verifieer installatie
   shell: ". /etc/profile.d/oracle_client.sh && sqlplus -V"
   register: sqlplus_version
