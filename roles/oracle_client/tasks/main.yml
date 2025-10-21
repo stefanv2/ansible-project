@@ -1,0 +1,57 @@
+---
+- name: Zorg dat vereiste pakketten aanwezig zijn
+  apt:
+    name:
+      - unzip
+      - libaio1
+      - wget
+    state: present
+  become: true
+
+- name: Maak installatiepad aan
+  file:
+    path: /opt/oracle
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Download Oracle Instant Client
+  get_url:
+    url: "{{ oracle_client_url }}"
+    dest: /opt/oracle/oracle-instantclient.zip
+    mode: '0644'
+  become: true
+  when: oracle_client_url is defined
+
+- name: Pak Oracle Instant Client uit
+  unarchive:
+    src: /opt/oracle/oracle-instantclient.zip
+    dest: /opt/oracle/
+    remote_src: true
+  become: true
+
+- name: Maak symlink voor sqlplus
+  file:
+    src: /opt/oracle/instantclient_{{ oracle_client_version }}/sqlplus
+    dest: /usr/bin/sqlplus
+    state: link
+  become: true
+
+- name: Zet environment-variabelen in /etc/profile.d/oracle_client.sh
+  copy:
+    dest: /etc/profile.d/oracle_client.sh
+    content: |
+      export ORACLE_HOME=/opt/oracle/instantclient_{{ oracle_client_version }}
+      export LD_LIBRARY_PATH=$ORACLE_HOME
+      export PATH=$PATH:$ORACLE_HOME
+    mode: '0755'
+  become: true
+
+- name: Verifieer installatie
+  shell: ". /etc/profile.d/oracle_client.sh && sqlplus -V"
+  register: sqlplus_version
+  changed_when: false
+
+- name: Toon Oracle Client versie
+  debug:
+    msg: "{{ sqlplus_version.stdout }}"
