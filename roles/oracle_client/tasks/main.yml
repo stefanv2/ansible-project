@@ -73,41 +73,34 @@
   become: true
 
 # ===============================
-# 🔹 Test TCPS connectie + validatie
+# 🔹 Test Oracle connectie via oracle.oci.sql (native module)
 # ===============================
-- name: Test TCPS connectie met sqlplus (via Credential env vars, non-interactive)
-  shell: |
-    echo "exit" | sqlplus -s {{ ORACLE_USERNAME }}/{{ ORACLE_PASSWORD }}@LUIZ
-  environment:
-    ORACLE_HOME: "/opt/oracle/instantclient_{{ oracle_client_version }}"
-    PATH: "/opt/oracle/instantclient_{{ oracle_client_version }}:{{ ansible_env.PATH }}"
-    LD_LIBRARY_PATH: "/opt/oracle/instantclient_{{ oracle_client_version }}"
-    TNS_ADMIN: "/opt/oracle/instantclient_{{ oracle_client_version }}/network/admin"
-  register: sqlplus_test
-  timeout: 20
+
+- name: Test Oracle verbinding via oracle.oci.sql
+  oracle.oci.sql:
+    user: "{{ ORACLE_USERNAME }}"
+    password: "{{ ORACLE_PASSWORD }}"
+    service_name: "luiz"
+    statements:
+      - "SELECT '✅ Verbinding OK via Ansible (OCI module)' AS test_result FROM dual"
+  register: oracle_sql_test
   ignore_errors: true
-  become: true
 
-- name: Toon resultaat van TCPS connectie
+- name: Toon Oracle testresultaat
   debug:
-    var: sqlplus_test.stdout
+    msg: "{{ oracle_sql_test.executed_statements[0].rows[0][0] | default('❌ Geen resultaat ontvangen') }}"
 
-- name: Controleer op ORA-fouten in sqlplus output
+- name: Controleer of Oracle-verbinding geslaagd is
   fail:
-    msg: "❌ SQL*Plus connectie mislukt: {{ sqlplus_test.stdout | trim }}"
+    msg: "❌ Oracle-verbinding mislukt of gaf geen output: {{ oracle_sql_test }}"
   when:
-    - sqlplus_test.stdout is defined
-    - sqlplus_test.stdout is search("ORA-")
-
-- name: Bevestig succesvolle TCPS-verbinding
-  debug:
-    msg: "✅ Oracle Client heeft succesvol verbinding gemaakt met {{ ORACLE_USERNAME }}@LUIZ"
-  when: sqlplus_test.stdout is search("Connected to:")
+    - oracle_sql_test.failed is defined and oracle_sql_test.failed
 
 # ===============================
 # 🔹 Controleer clientversie
 # ===============================
-- name: Verifieer installatie
+
+- name: Verifieer Oracle Client versie
   shell: ". /etc/profile.d/oracle_client.sh && sqlplus -V"
   register: sqlplus_version
   changed_when: false
