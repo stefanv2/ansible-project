@@ -72,15 +72,16 @@
     mode: '0644'
   become: true
 
-- name: Test TCPS connectie met sqlplus (via Credential env vars)
-  shell: >
-    sqlplus -s {{ ORACLE_USERNAME }}/{{ ORACLE_PASSWORD }}@LUIZ
+- name: Test TCPS connectie met sqlplus (via Credential env vars, non-interactive)
+  shell: |
+    echo "exit" | sqlplus -s {{ ORACLE_USERNAME }}/{{ ORACLE_PASSWORD }}@LUIZ
   environment:
     ORACLE_HOME: "/opt/oracle/instantclient_{{ oracle_client_version }}"
     PATH: "/opt/oracle/instantclient_{{ oracle_client_version }}:{{ ansible_env.PATH }}"
     LD_LIBRARY_PATH: "/opt/oracle/instantclient_{{ oracle_client_version }}"
     TNS_ADMIN: "/opt/oracle/instantclient_{{ oracle_client_version }}/network/admin"
   register: sqlplus_test
+  timeout: 20
   ignore_errors: true
   become: true
 
