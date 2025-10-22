@@ -47,4 +47,3 @@
   become: true
   roles:
     - barman_container
-
