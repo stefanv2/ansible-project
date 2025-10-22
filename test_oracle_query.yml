@@ -1,0 +1,17 @@
+---
+- name: Test Oracle SQL-verbinding via oracle.oci
+  hosts: ubuntu06
+  gather_facts: false
+  tasks:
+    - name: Run test query
+      oracle.oci.sql:
+        db_user: system
+        db_password: Tulpen123_
+        db_service: luiz
+        sql: "SELECT name FROM v$database;"
+      register: query_result
+
+    - name: Toon query resultaat
+      debug:
+        var: query_result
+
