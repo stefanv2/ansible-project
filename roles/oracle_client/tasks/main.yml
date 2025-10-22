@@ -72,6 +72,9 @@
     mode: '0644'
   become: true
 
+# ===============================
+# 🔹 Test TCPS connectie + validatie
+# ===============================
 - name: Test TCPS connectie met sqlplus (via Credential env vars, non-interactive)
   shell: |
     echo "exit" | sqlplus -s {{ ORACLE_USERNAME }}/{{ ORACLE_PASSWORD }}@LUIZ
@@ -89,6 +92,21 @@
   debug:
     var: sqlplus_test.stdout
 
+- name: Controleer op ORA-fouten in sqlplus output
+  fail:
+    msg: "❌ SQL*Plus connectie mislukt: {{ sqlplus_test.stdout | trim }}"
+  when:
+    - sqlplus_test.stdout is defined
+    - sqlplus_test.stdout is search("ORA-")
+
+- name: Bevestig succesvolle TCPS-verbinding
+  debug:
+    msg: "✅ Oracle Client heeft succesvol verbinding gemaakt met {{ ORACLE_USERNAME }}@LUIZ"
+  when: sqlplus_test.stdout is search("Connected to:")
+
+# ===============================
+# 🔹 Controleer clientversie
+# ===============================
 - name: Verifieer installatie
   shell: ". /etc/profile.d/oracle_client.sh && sqlplus -V"
   register: sqlplus_version
@@ -97,3 +115,4 @@
 - name: Toon Oracle Client versie
   debug:
     msg: "{{ sqlplus_version.stdout }}"
+
